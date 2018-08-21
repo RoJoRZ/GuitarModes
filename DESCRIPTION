@@ -5,6 +5,7 @@ Version: 0.1.0
 Author: Ronny Joosen
 Maintainer: Ronny Joosen <rvl.joosen@gmail.cpm>
 Description: Find the positioning of different modes and ground tones on your guitar
+Depends: ggplot2, dplyr
 License: GNUv3
 Encoding: UTF-8
 LazyData: true
