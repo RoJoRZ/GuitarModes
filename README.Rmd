@@ -104,7 +104,6 @@ GuitarPlot(Combine)
 ```
 
 
-
 Or completely flexible generate any chord or setting in the plot
 
 ```{r, fig.height= 3, fig.width= 10}

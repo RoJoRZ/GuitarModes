@@ -144,3 +144,5 @@ GuitarPlot(Ecord, nfrets = 4, labsize = 4)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-12-1.png)
+
+Ronny
