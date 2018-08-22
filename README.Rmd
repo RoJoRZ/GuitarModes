@@ -55,45 +55,45 @@ GuitarPlot(Ionian3, labsize = 3, firstfret = 5, lastfret = 15)
 ```
 
 
-Get and plot the Dorian3 mode in C
+Get and plot the Dorian3 mode in D
 
 ```{r, fig.height= 3, fig.width= 10}
-Dorian3 <- GetMode("C", "Dorian3")
+Dorian3 <- GetMode("D", "Dorian3")
 GuitarPlot(Dorian3, labsize = 3, firstfret = 5, lastfret = 15)
 ```
 
-Get and plot the Phrygian3 mode in C
+Get and plot the Phrygian3 mode in E
 
 ```{r, fig.height= 3, fig.width= 10}
-Phrygian3 <- GetMode("C", "Phrygian3")
-GuitarPlot(Phrygian3, labsize = 3, firstfret = 5, lastfret = 15)
+Phrygian3 <- GetMode("E", "Phrygian3")
+GuitarPlot(Phrygian3, labsize = 3, firstfret = 10, lastfret = 20)
 ```
 
-Get and plot the Lydian3 mode in C
+Get and plot the Lydian3 mode in F
 
 ```{r, fig.height= 3, fig.width= 10}
-Lydian3 <- GetMode("C", "Lydian3")
-GuitarPlot(Lydian3, labsize = 3, firstfret = 5, lastfret = 15)
+Lydian3 <- GetMode("F", "Lydian3")
+GuitarPlot(Lydian3, labsize = 3, firstfret = 10, lastfret = 20)
 ```
 
-Get and plot the MixoLydian3 mode in C
+Get and plot the MixoLydian3 mode in G
 
 ```{r, fig.height= 3, fig.width= 10}
-MixoLydian3 <- GetMode("C", "MixoLydian3")
-GuitarPlot(MixoLydian3, labsize = 3, firstfret = 5, lastfret = 15)
+MixoLydian3 <- GetMode("G", "MixoLydian3")
+GuitarPlot(MixoLydian3, labsize = 3, firstfret = 12, lastfret = 22)
 ```
 
-Get and plot the Aeolian3 mode in C
+Get and plot the Aeolian3 mode in A
 
 ```{r, fig.height= 3, fig.width= 10}
-Aeolian3 <- GetMode("C", "Aeolian3")
-GuitarPlot(Aeolian3, labsize = 3, firstfret = 5, lastfret = 15)
+Aeolian3 <- GetMode("A", "Aeolian3")
+GuitarPlot(Aeolian3, labsize = 3, firstfret = 0, lastfret = 10)
 ```
 
-Get and plot the Locrian3 mode in C
+Get and plot the Locrian3 mode in B
 
 ```{r, fig.height= 3, fig.width= 10}
-Locrian3 <- GetMode("C", "Locrian3")
+Locrian3 <- GetMode("B", "Locrian3")
 GuitarPlot(Locrian3, labsize = 3, firstfret = 5, lastfret = 15)
 ```
 

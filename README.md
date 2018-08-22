@@ -71,55 +71,55 @@ GuitarPlot(Ionian3, labsize = 3, firstfret = 5, lastfret = 15)
 
 ![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
-Get and plot the Dorian3 mode in C
+Get and plot the Dorian3 mode in D
 
 ``` r
-Dorian3 <- GetMode("C", "Dorian3")
+Dorian3 <- GetMode("D", "Dorian3")
 GuitarPlot(Dorian3, labsize = 3, firstfret = 5, lastfret = 15)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
-Get and plot the Phrygian3 mode in C
+Get and plot the Phrygian3 mode in E
 
 ``` r
-Phrygian3 <- GetMode("C", "Phrygian3")
-GuitarPlot(Phrygian3, labsize = 3, firstfret = 5, lastfret = 15)
+Phrygian3 <- GetMode("E", "Phrygian3")
+GuitarPlot(Phrygian3, labsize = 3, firstfret = 10, lastfret = 20)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
-Get and plot the Lydian3 mode in C
+Get and plot the Lydian3 mode in F
 
 ``` r
-Lydian3 <- GetMode("C", "Lydian3")
-GuitarPlot(Lydian3, labsize = 3, firstfret = 5, lastfret = 15)
+Lydian3 <- GetMode("F", "Lydian3")
+GuitarPlot(Lydian3, labsize = 3, firstfret = 10, lastfret = 20)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
-Get and plot the MixoLydian3 mode in C
+Get and plot the MixoLydian3 mode in G
 
 ``` r
-MixoLydian3 <- GetMode("C", "MixoLydian3")
-GuitarPlot(MixoLydian3, labsize = 3, firstfret = 5, lastfret = 15)
+MixoLydian3 <- GetMode("G", "MixoLydian3")
+GuitarPlot(MixoLydian3, labsize = 3, firstfret = 12, lastfret = 22)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
-Get and plot the Aeolian3 mode in C
+Get and plot the Aeolian3 mode in A
 
 ``` r
-Aeolian3 <- GetMode("C", "Aeolian3")
-GuitarPlot(Aeolian3, labsize = 3, firstfret = 5, lastfret = 15)
+Aeolian3 <- GetMode("A", "Aeolian3")
+GuitarPlot(Aeolian3, labsize = 3, firstfret = 0, lastfret = 10)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
-Get and plot the Locrian3 mode in C
+Get and plot the Locrian3 mode in B
 
 ``` r
-Locrian3 <- GetMode("C", "Locrian3")
+Locrian3 <- GetMode("B", "Locrian3")
 GuitarPlot(Locrian3, labsize = 3, firstfret = 5, lastfret = 15)
 ```
 
