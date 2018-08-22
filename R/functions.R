@@ -1,3 +1,30 @@
+#' DefNotes
+#'
+#' Define note notation
+#'
+#' @param notes note notation, NULL will get the default
+#'
+#' @return notes
+#'
+#' @examples
+#' DefNotes()
+#'
+#' @export
+
+DefNotes <- function(notes = NULL) {
+  # Standard tuning is used if no tuning is indicated
+  if (is.null(notes)) {
+  notes <- rep(c("A", "A#/Bb",
+                 "B",
+                 "C","C#/Db",
+                 "D","D#/Eb",
+                 "E",
+                 "F","F#/Gb",
+                 "G", "G#/Ab"),4)
+  }
+  return(notes)
+}
+
 #' GetNote
 #'
 #' Return note at position
@@ -17,13 +44,7 @@ GetNote <- function(string, position, tuning = NULL) {
   # Standard tuning is used if no tuning is indicated
   if (is.null(tuning)) tuning <- c("E","A","D","G","B","E")
   # Note notation
-  notes <- rep(c("A", "A#/Bb",
-             "B",
-             "C","C#/Db",
-             "D","D#/Eb",
-             "E",
-             "F","F#/Gb",
-             "G", "G#/Ab"),4)
+  notes <- DefNotes()
   note <- notes[which(tuning[string] == notes)[1] + position]
   return(note)
 }
@@ -49,18 +70,12 @@ GetPosition <- function(note, nfrets = NULL, tuning = NULL) {
   # nfrets = 22 used if no nfrets is indicated
   if (is.null(nfrets)) nfrets <- 22
   # Note notation
-  notes <- rep(c("A", "A#/Bb",
-                 "B",
-                 "C","C#/Db",
-                 "D","D#/Eb",
-                 "E",
-                 "F","F#/Gb",
-                 "G", "G#/Ab"),4)
+  notes <- DefNotes()
   # create a df with all notes on every position
   allnotes <- data.frame(string = rep(c(1:6),nfrets + 1), position = c(0:nfrets)) %>%
               rowwise() %>% mutate(note = GuitarModes::GetNote(string, position))
   # filter the df to the required note
-  positions <- allnotes[which(note == allnotes$note),]
+  positions <- allnotes[which(note == allnotes$note),] %>% arrange(string, position)
   return(positions)
 }
 
@@ -78,23 +93,43 @@ GetPosition <- function(note, nfrets = NULL, tuning = NULL) {
 #'
 #' @export
 
-GetMode <- function(tune, mode = c("Ionian3")) {
+GetMode <- function(tune, mode = c("Ionian3", "Dorian3", "Phrygian3", "Lydian3", "MixoLydian3", "Aeolian3", "Locrian3")) {
 
-  notes <- rep(c("A", "A#/Bb",
-                 "B",
-                 "C","C#/Db",
-                 "D","D#/Eb",
-                 "E",
-                 "F","F#/Gb",
-                 "G", "G#/Ab"),2)
+  notes <- DefNotes()
+  shift <- which(notes == tune)[2]-8
 
   if (mode == "Ionian3") {
-    shift <- which(notes == tune)[2]-8
-    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,1,1,2,2,2,2,2,2,4,4,4,4,4,4,5,5)) %>%
-    mutate(position = position + shift) %>%
-    rowwise() %>% mutate(note = GuitarModes::GetNote(string, position))
-
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,1,1,2,2,2,2,2,2,4,4,4,4,4,4,5,5))
   }
+
+  if (mode == "Dorian3") {
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,2,2,2,2,2,2,3,3,3,4,4,4,5,5))
+  }
+
+  if (mode == "Phrygian3") {
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,1,1,1,2,2,2,3,3,3,3,3,4,5,5))
+  }
+
+  if (mode == "Lydian3") {
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,1,1,1,2,2,2,2,2,3,4,4,4,4,4,4,5,6))
+  }
+
+  if (mode == "MixoLydian3") {
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,1,2,2,2,2,2,2,3,4,4,4,4,4,5,5))
+  }
+
+  if (mode == "Aeolian3") {
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,1,2,2,2,2,2,3,3,3,3,4,4,5,5))
+  }
+
+  if (mode == "Locrian3") {
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,1,1,1,1,2,2,3,3,3,3,3,3,5,5))
+  }
+
+  modepos <- modepos %>% mutate(position = position + shift) %>%
+             rowwise() %>% mutate(note = GuitarModes::GetNote(string, position)) %>%
+             arrange(string, position)
+
   return(modepos)
 }
 
