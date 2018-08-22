@@ -133,7 +133,61 @@ GetMode <- function(tune, mode = c("Ionian3", "Dorian3", "Phrygian3", "Lydian3",
   return(modepos)
 }
 
+#' CombineModes
+#'
+#' Combine Modes using their intervals
+#'
+#' @param tune base tune
+#' @param basemode base mode
+#' @param modes modes to combine using the intervals (NULL is all modes)
+#'
+#' @return df with string,position, note and mode
+#'
+#' @examples
+#' CombineModes(tune = "A",basemode = "Ionian3", modes = c("Ionian3", "Dorian3", "Phrygian3"))
+#'
+#' @export
 
+CombineModes <- function(tune, basemode, modes = NULL) {
+  # Standard modes if modes = NULL
+  if (is.null(modes)) modes <- c("Ionian3", "Dorian3", "Phrygian3", "Lydian3",
+                                 "MixoLydian3", "Aeolian3", "Locrian3")
+
+  modeintervals <- data.frame(mode = c("Ionian3", "Dorian3", "Phrygian3", "Lydian3",
+                                       "MixoLydian3", "Aeolian3", "Locrian3"),
+                              interval = c(2,4,6,7,9,11,13))
+
+  notes <- DefNotes()
+
+  # get base mode data
+  modecomb <- GetMode(tune, basemode)
+  modecomb$mode <- basemode
+
+  # now combine with other modes based on the known intervals
+  for (i in 1:length(modes)) {
+    modestart <- which(basemode == modeintervals$mode)
+    nextmode <- which(modes[i] == modeintervals$mode)
+    if (modestart < nextmode){
+
+      nextinterval <-  modeintervals$interval[nextmode] - modeintervals$interval[modestart]
+      nexttune <- notes[which(tune == notes)[1] + nextinterval]
+      nextcomb <- GetMode(nexttune, modes[i])
+      nextcomb$mode <- modes[i]
+      modecomb <- rbind(modecomb, nextcomb)
+    }
+    if (modestart > nextmode) {
+
+      nextinterval <-  (modeintervals$interval[nrow(modeintervals)] - modeintervals$interval[modestart]) +
+                       (modeintervals$interval[nextmode] - modeintervals$interval[1])
+      nexttune <- notes[which(tune == notes)[1] + nextinterval]
+      nextcomb <- GetMode(nexttune, modes[i])
+      nextcomb$mode <- modes[i]
+      modecomb <- rbind(modecomb, nextcomb)
+    }
+  }
+
+  return(modecomb)
+}
 
 #' GuitarPlot
 #'
@@ -164,8 +218,9 @@ GuitarPlot <- function(data, nfrets = NULL, firstfret = NULL, lastfret = NULL, t
   # Standard tuning is used if no tuning is indicated
   if (is.null(tuning)) tuning <- c("E","A","D","G","B","E")
 
+
 ggplot(data, aes(x=string, y=position, label = note)) +
-  geom_label(size = labsize, colour = "black") +
+  geom_label(size = labsize, color = "black") +
   scale_x_continuous(limits=c(1,6), breaks=seq(1, 6, 1), labels = tuning) +
   scale_y_continuous(limits= c(firstfret,lastfret), breaks=seq(0, 22, 1)) +
   coord_flip() +
