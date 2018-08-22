@@ -15,8 +15,8 @@ Done:
 
 1.  GetNote: Get the note from a given posion (with flexible tuning)
 2.  GetPosition: Get all positions of a certain note (with flexible tuning)
-3.  GetMode: Get mode positions and tones (at standard tuning) To do:
-4.  
+3.  GetMode: Get mode positions and tones (at standard tuning)
+4.  CombineModes: Start with a mode in a tune and get the positions of the other modes
 
 <!-- -->
 
@@ -125,6 +125,15 @@ GuitarPlot(Locrian3, labsize = 3, firstfret = 5, lastfret = 15)
 
 ![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
+Get positions of all modes starting from a centain mode and tune
+
+``` r
+Combine <- CombineModes(tune = "C",basemode = "Ionian3", modes = c("Lydian3"))
+GuitarPlot(Combine)
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
+
 Or completely flexible generate any chord or setting in the plot
 
 ``` r
@@ -134,4 +143,4 @@ Ecord <- data.frame(string = c(1,2,3,4,5,6),
 GuitarPlot(Ecord, nfrets = 4, labsize = 4)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-12-1.png)
