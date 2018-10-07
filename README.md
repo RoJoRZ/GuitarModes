@@ -30,7 +30,8 @@ Get a note from a given position:
 GetNote(string = 1,position = 3)
 ```
 
-    ## [1] "G"
+    ##   equiv1 equiv2 equiv3
+    ## 8      G     Fx    Abb
 
 Get positions of a given note:
 
@@ -57,7 +58,7 @@ kable(Apositions)
 Plot on a GuitarPlot
 
 ``` r
-GuitarPlot(Apositions, labsize = 0)
+GuitarPlot(Apositions, labsize = 3)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
@@ -66,10 +67,19 @@ Get and plot the Ionian mode in C
 
 ``` r
 Ionian3 <- GetMode("C", "Ionian3")
-GuitarPlot(Ionian3, labsize = 3, firstfret = 5, lastfret = 15)
+GuitarPlot(Ionian3, labsize = 3, firstfret = 1, lastfret = 24)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
+
+Get and plot the Ionian mode in A\#
+
+``` r
+Ionian3 <- GetMode("A#", "Ionian3")
+GuitarPlot(Ionian3, labsize = 3, firstfret = 1, lastfret = 24)
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 Get and plot the Dorian3 mode in D
 
@@ -78,34 +88,34 @@ Dorian3 <- GetMode("D", "Dorian3")
 GuitarPlot(Dorian3, labsize = 3, firstfret = 5, lastfret = 15)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 Get and plot the Phrygian3 mode in E
 
 ``` r
 Phrygian3 <- GetMode("E", "Phrygian3")
-GuitarPlot(Phrygian3, labsize = 3, firstfret = 10, lastfret = 20)
+GuitarPlot(Phrygian3, labsize = 3, firstfret = 1, lastfret = 22)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 Get and plot the Lydian3 mode in F
 
 ``` r
 Lydian3 <- GetMode("F", "Lydian3")
-GuitarPlot(Lydian3, labsize = 3, firstfret = 10, lastfret = 20)
+GuitarPlot(Lydian3, labsize = 3, firstfret = 1, lastfret = 20)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 Get and plot the MixoLydian3 mode in G
 
 ``` r
 MixoLydian3 <- GetMode("G", "MixoLydian3")
-GuitarPlot(MixoLydian3, labsize = 3, firstfret = 12, lastfret = 22)
+GuitarPlot(MixoLydian3, labsize = 3, firstfret = 1, lastfret = 22)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 Get and plot the Aeolian3 mode in A
 
@@ -114,7 +124,7 @@ Aeolian3 <- GetMode("A", "Aeolian3")
 GuitarPlot(Aeolian3, labsize = 3, firstfret = 0, lastfret = 10)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
 Get and plot the Locrian3 mode in B
 
@@ -123,16 +133,27 @@ Locrian3 <- GetMode("B", "Locrian3")
 GuitarPlot(Locrian3, labsize = 3, firstfret = 5, lastfret = 15)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
 Get positions of all modes starting from a centain mode and tune
 
 ``` r
-Combine <- CombineModes(tune = "C",basemode = "Ionian3", modes = c("Lydian3"))
+# Combine <- CombineModes(tune = "F",basemode = "Lydian3", modes = c("Ionian3"))
+Combine <- CombineModes(tune = "C",basemode = "Ionian3", modes = NULL)
 GuitarPlot(Combine)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-12-1.png)
+
+Get positions of all modes starting from a centain mode and tune
+
+``` r
+# Combine <- CombineModes(tune = "F",basemode = "Lydian3", modes = c("Ionian3"))
+Combine <- CombineModes(tune = "F",basemode = "Ionian3", modes = NULL)
+GuitarPlot(Combine)
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
 Or completely flexible generate any chord or setting in the plot
 
@@ -143,6 +164,4 @@ Ecord <- data.frame(string = c(1,2,3,4,5,6),
 GuitarPlot(Ecord, nfrets = 4, labsize = 4)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-12-1.png)
-
-Ronny
+![](README_files/figure-markdown_github/unnamed-chunk-14-1.png)

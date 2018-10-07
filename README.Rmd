@@ -43,16 +43,22 @@ kable(Apositions)
 
 Plot on a GuitarPlot
 ```{r, fig.height= 3, fig.width= 10}
-GuitarPlot(Apositions, labsize = 0)
+GuitarPlot(Apositions, labsize = 3)
 ```
 
 Get and plot the Ionian mode in C
 
 ```{r, fig.height= 3, fig.width= 10}
 Ionian3 <- GetMode("C", "Ionian3")
-GuitarPlot(Ionian3, labsize = 3, firstfret = 5, lastfret = 15)
+GuitarPlot(Ionian3, labsize = 3, firstfret = 1, lastfret = 24)
 ```
 
+Get and plot the Ionian mode in A#
+
+```{r, fig.height= 3, fig.width= 10}
+Ionian3 <- GetMode("A#", "Ionian3")
+GuitarPlot(Ionian3, labsize = 3, firstfret = 1, lastfret = 24)
+```
 
 Get and plot the Dorian3 mode in D
 
@@ -65,21 +71,21 @@ Get and plot the Phrygian3 mode in E
 
 ```{r, fig.height= 3, fig.width= 10}
 Phrygian3 <- GetMode("E", "Phrygian3")
-GuitarPlot(Phrygian3, labsize = 3, firstfret = 10, lastfret = 20)
+GuitarPlot(Phrygian3, labsize = 3, firstfret = 1, lastfret = 22)
 ```
 
 Get and plot the Lydian3 mode in F
 
 ```{r, fig.height= 3, fig.width= 10}
 Lydian3 <- GetMode("F", "Lydian3")
-GuitarPlot(Lydian3, labsize = 3, firstfret = 10, lastfret = 20)
+GuitarPlot(Lydian3, labsize = 3, firstfret = 1, lastfret = 20)
 ```
 
 Get and plot the MixoLydian3 mode in G
 
 ```{r, fig.height= 3, fig.width= 10}
 MixoLydian3 <- GetMode("G", "MixoLydian3")
-GuitarPlot(MixoLydian3, labsize = 3, firstfret = 12, lastfret = 22)
+GuitarPlot(MixoLydian3, labsize = 3, firstfret = 1, lastfret = 22)
 ```
 
 Get and plot the Aeolian3 mode in A
@@ -99,9 +105,18 @@ GuitarPlot(Locrian3, labsize = 3, firstfret = 5, lastfret = 15)
 Get positions of all modes starting from a centain mode and tune
 
 ```{r, fig.height= 3, fig.width= 10}
-Combine <- CombineModes(tune = "C",basemode = "Ionian3", modes = c("Lydian3"))
+# Combine <- CombineModes(tune = "F",basemode = "Lydian3", modes = c("Ionian3"))
+Combine <- CombineModes(tune = "C",basemode = "Ionian3", modes = NULL)
 GuitarPlot(Combine)
 ```
+
+Get positions of all modes starting from a centain mode and tune
+
+```{r, fig.height= 3, fig.width= 10}
+# Combine <- CombineModes(tune = "F",basemode = "Lydian3", modes = c("Ionian3"))
+Combine <- CombineModes(tune = "F",basemode = "Ionian3", modes = NULL)
+GuitarPlot(Combine)
+``` 
 
 
 Or completely flexible generate any chord or setting in the plot
