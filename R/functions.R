@@ -85,7 +85,9 @@ GetPosition <- function(note, nfrets = NULL, tuning = NULL) {
 
 #' GetMode
 #'
-#' Return dataframe with string, position, note
+#' Return dataframe with string, position, note from modes:
+#' make sure mode is "Ionian3", "Dorian3", "Phrygian3", "Lydian3",
+#' "MixoLydian3", "Aeolian3" or "Locrian3"
 #'
 #' @param tune base note
 #' @param mode mode
@@ -97,57 +99,69 @@ GetPosition <- function(note, nfrets = NULL, tuning = NULL) {
 #'
 #' @export
 
-GetMode <- function(tune, mode = c("Ionian3", "Dorian3", "Phrygian3", "Lydian3", "MixoLydian3", "Aeolian3", "Locrian3")) {
+GetMode <- function(tune, nfrets = NULL, mode = NULL) {
+  if (is.null(mode)) mode = "Ionian3"
+
+  # nfrets = 22 used if no nfrets is indicated
+  if (is.null(nfrets)) nfrets <- 22
 
   notes <- DefNotes()
   shift <- which(notes == tune, arr.ind = T)[1,1]+7
   if (shift > 12) shift <- shift - 12
 
   if (mode == "Ionian3") {
-    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,1,1,2,2,2,2,2,2,4,4,4,4,4,4,5,5))
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,1,1,2,2,2,2,2,2,4,4,4,4,4,4,5,5)) %>%
+                arrange(string, position) %>%  mutate(chords = rep(c("","m","m","","","m","dim"),3)[1:18])
   }
 
   if (mode == "Dorian3") {
-    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,2,2,2,2,2,2,3,3,3,4,4,4,5,5))
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,2,2,2,2,2,2,3,3,3,4,4,4,5,5)) %>%
+      arrange(string, position) %>%  mutate(chords = rep(c("m","m","","","m","dim",""),3)[1:18])
   }
 
   if (mode == "Phrygian3") {
-    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,1,1,1,2,2,2,3,3,3,3,3,4,5,5))
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,1,1,1,2,2,2,3,3,3,3,3,4,5,5)) %>%
+      arrange(string, position) %>%  mutate(chords = rep(c("m","","","m","dim","","m"),3)[1:18])
   }
 
   if (mode == "Lydian3") {
-    modepos <- data.frame(string = rep(1:6,3), position = c(0,1,1,1,2,2,2,2,2,3,4,4,4,4,4,4,5,6))
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,1,1,1,2,2,2,2,2,3,4,4,4,4,4,4,5,6)) %>%
+      arrange(string, position) %>%  mutate(chords = rep(c("","","m","dim","","m","m"),3)[1:18])
   }
 
   if (mode == "MixoLydian3") {
-    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,1,2,2,2,2,2,2,3,4,4,4,4,4,5,5))
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,1,2,2,2,2,2,2,3,4,4,4,4,4,5,5)) %>%
+      arrange(string, position) %>%  mutate(chords = rep(c("","m","dim","","m","m",""),3)[1:18])
   }
 
   if (mode == "Aeolian3") {
-    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,1,2,2,2,2,2,3,3,3,3,4,4,5,5))
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,1,2,2,2,2,2,3,3,3,3,4,4,5,5)) %>%
+      arrange(string, position) %>%  mutate(chords = rep(c("m","dim","","m","m","",""),3)[1:18])
   }
 
   if (mode == "Locrian3") {
-    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,1,1,1,1,2,2,3,3,3,3,3,3,5,5))
+    modepos <- data.frame(string = rep(1:6,3), position = c(0,0,0,0,1,1,1,1,2,2,3,3,3,3,3,3,5,5)) %>%
+      arrange(string, position) %>%  mutate(chords = rep(c("dim","","m","m","","","m"),3)[1:18])
   }
 
   modepos <- modepos %>% mutate(position = position + shift) %>%
     rowwise() %>%
     mutate(equiv1 = GuitarModes::GetNote(string, position)[1,1]) %>%
     mutate(equiv2 = GuitarModes::GetNote(string, position)[1,2]) %>%
-    mutate(equiv3 = GuitarModes::GetNote(string, position)[1,3]) %>%
-             arrange(string, position)
+    mutate(equiv3 = GuitarModes::GetNote(string, position)[1,3])
 
   alphabet <- rep(toupper(letters[1:7]),4)
   first <- grep(substr(tune, 1,1), alphabet)[1]-1
   for (i in 1:nrow(modepos)) {
     if (i == 1) modepos$note <- tune else {
     enharm <- alphabet[first + i ]
-    modepos[i,6] <- as.matrix(modepos[i,grep(enharm, substr(as.matrix(modepos[i,]),1,1))[1]])
+    modepos[i,7] <- as.matrix(modepos[i,grep(enharm, substr(as.matrix(modepos[i,]),1,1))[1]])
     }
   }
-  modepos <- modepos[,c(1,2,6)]
-
+  modepos <- modepos[,c(1,2,3,7)]
+  modepos2 <- mutate(modepos, position = position + 12) %>% filter(position <= nfrets)
+  modepos <- rbind(modepos,modepos2)
+  modepos <- modepos %>% mutate(chords = paste0(note, chords))
 
   return(modepos)
 }
@@ -167,7 +181,7 @@ GetMode <- function(tune, mode = c("Ionian3", "Dorian3", "Phrygian3", "Lydian3",
 #'
 #' @export
 
-CombineModes <- function(tune, basemode, modes = NULL) {
+CombineModes <- function(tune, nfrets = NULL, basemode, modes = NULL) {
   # Standard modes if modes = NULL
   if (is.null(modes)) modes <- c("Ionian3", "Dorian3", "Phrygian3", "Lydian3",
                                  "MixoLydian3", "Aeolian3", "Locrian3")
@@ -175,11 +189,13 @@ CombineModes <- function(tune, basemode, modes = NULL) {
   modeintervals <- data.frame(mode = c("Ionian3", "Dorian3", "Phrygian3", "Lydian3",
                                        "MixoLydian3", "Aeolian3", "Locrian3"),
                               interval = c(2,4,6,7,9,11,13))
+  # nfrets = 22 used if no nfrets is indicated
+  if (is.null(nfrets)) nfrets <- 22
 
   notes <- DefNotes()
 
   # get base mode data
-  modecomb <- GetMode(tune, basemode)
+  modecomb <- GetMode(tune, nfrets, basemode)
   modecomb$mode <- basemode
   basemodepos <- which(basemode == modeintervals$mode)
   # now combine with other modes
@@ -192,31 +208,10 @@ CombineModes <- function(tune, basemode, modes = NULL) {
       nextinterval <- (7- basemodepos) + nextmode
     }
     nexttune <- modecomb$note[1+nextinterval]
-    nextcomb <- GetMode(nexttune, modes[i])
+    nextcomb <- GetMode(nexttune, nfrets, modes[i])
     nextcomb$mode <- modes[i]
     modecomb <- rbind(modecomb, nextcomb)
   }
-    # if (modestart < nextmode){
-    #
-    #   #nextinterval <-  modeintervals$interval[nextmode] - modeintervals$interval[modestart]
-    #
-    #   nexttune <- modecomb$note[1+nextmode-modestart]
-    #     #notes[which(tune == notes, arr.ind = T)[1] + nextinterval,]
-    #   nextcomb <- GetMode(nexttune, modes[i])
-    #   nextcomb$mode <- modes[i]
-    #   modecomb <- rbind(modecomb, nextcomb)
-    # }
-    # if (modestart > nextmode) {
-    #   nexttune <- modecomb$note[1+modestart-nextmode]
-    #   # nextinterval <-  (modeintervals$interval[nrow(modeintervals)] - modeintervals$interval[modestart]) +
-    #   #                  (modeintervals$interval[nextmode] - modeintervals$interval[1])
-    #   #nexttune <- modecomb$note[nextinterval]
-    #     #notes[which(tune == notes)[1] + nextinterval]
-    #   nextcomb <- GetMode(nexttune, modes[i])
-    #   nextcomb$mode <- modes[i]
-    #   modecomb <- rbind(modecomb, nextcomb)
-    # }
-    # }
 
   return(modecomb)
 }
