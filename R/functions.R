@@ -183,8 +183,7 @@ GetMode <- function(tune, nfrets = NULL, mode = NULL) {
 
 CombineModes <- function(tune, nfrets = NULL, basemode, modes = NULL) {
   # Standard modes if modes = NULL
-  if (is.null(modes)) modes <- c("Ionian3", "Dorian3", "Phrygian3", "Lydian3",
-                                 "MixoLydian3", "Aeolian3", "Locrian3")
+
 
   modeintervals <- data.frame(mode = c("Ionian3", "Dorian3", "Phrygian3", "Lydian3",
                                        "MixoLydian3", "Aeolian3", "Locrian3"),
@@ -199,6 +198,7 @@ CombineModes <- function(tune, nfrets = NULL, basemode, modes = NULL) {
   modecomb$mode <- basemode
   basemodepos <- which(basemode == modeintervals$mode)
   # now combine with other modes
+  if (!is.null(modes)) {
   for (i in 1:length(modes)) {
     #modestart <- which(basemode == modeintervals$mode)
     nextmode <- which(modes[i] == modeintervals$mode)
@@ -211,6 +211,7 @@ CombineModes <- function(tune, nfrets = NULL, basemode, modes = NULL) {
     nextcomb <- GetMode(nexttune, nfrets, modes[i])
     nextcomb$mode <- modes[i]
     modecomb <- rbind(modecomb, nextcomb)
+  }
   }
 
   return(modecomb)
