@@ -235,7 +235,12 @@ CombineModes <- function(tune, nfrets = NULL, basemode, modes = NULL) {
 #'
 #' @export
 
-GuitarPlot <- function(data, nfrets = NULL, firstfret = NULL, lastfret = NULL, tuning = NULL, labsize = 4) {
+GuitarPlot <- function(data, nfrets = NULL,
+                       firstfret = NULL, lastfret = NULL,
+                       tuning = NULL,
+                       labsize = 4,
+                       target = 1,
+                       targetstart = 1) {
 
   # nfrets = 22 used if no nfrets is indicated
   if (is.null(nfrets)) nfrets <- 22
@@ -245,9 +250,9 @@ GuitarPlot <- function(data, nfrets = NULL, firstfret = NULL, lastfret = NULL, t
   if (is.null(lastfret)) lastfret <- nfrets
   # Standard tuning is used if no tuning is indicated
   if (is.null(tuning)) tuning <- c("E","A","D","G","B","E")
+data$targets <- rep(c(1,0,1,0,1,0,1), times=ceiling(nrow(data)/7))[1:nrow(data)]
 
-
-ggplot(data, aes(x=string, y=position, label = note)) +
+ggplot(data, aes(x=string, y=position, label = note, fill = targets)) +
   geom_label(size = labsize, color = "black") +
   scale_x_continuous(limits=c(1,6), breaks=seq(1, 6, 1), labels = tuning) +
   scale_y_continuous(limits= c(firstfret,lastfret), breaks=seq(0, 22, 1)) +
