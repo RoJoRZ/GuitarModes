@@ -14,15 +14,22 @@ shinyServer(function(input, output) {
 
   chords <- reactive({
     #as.data.frame(Degree = c(1:7), Chord = unique(data()[,3]))
-    unique(data()$chords)
-  })
-  output$view <- renderTable({
-    chords()
+    data.frame(unique(data()$chords))
   })
 
+  output$chordtable = DT::renderDataTable({
+    t(chords())},
+  class = 'cell-border stripe',
+  rownames = FALSE,
+  colnames = c('I', 'II', 'III', 'IV', 'V', 'VI','VII'),
+  selection=list(mode="single", target="cell"),
+  options = list(searching = FALSE, paging = FALSE))
+
+  output$selectedCells <- renderPrint(sum(input$chordtable_cells_selected))
+
   output$plot <- renderPlot({
-    GuitarPlot(data(), labsize = 3)
-  }, height = 250)
+    GuitarPlot(data(), labsize = input$textsize)
+  }, height = 350)
 
 
 # The end ---------------------------------------------------------------------

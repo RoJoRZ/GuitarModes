@@ -21,6 +21,12 @@ shinyUI(
                                       choices = c("Ionian3", "Dorian3", "Phrygian3", "Lydian3",
                                                   "MixoLydian3", "Aeolian3", "Locrian3"),
                                       multiple = TRUE, selectize = TRUE),
+                          radioButtons("targets", label = h4("Show target notes"),
+                                       choices = list("1-3-5" = 1, "1-3-5-7" = 2),
+                                       selected = 1),
+                          sliderInput("textsize", label = h4("Text size"), min = 0,
+                                      max = 10, value = 3),
+
                           # indicator that the server is busy (copy in every sidebar on each tab)
                           conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                                            tags$div(id="loadmessage",
@@ -29,7 +35,9 @@ shinyUI(
 
                         mainPanel(
                           plotOutput('plot'),
-                          tableOutput("view"),
+                          h4("Chords that belong to the selected basemode and tune, click to show target notes."),
+                          DT::dataTableOutput("chordtable"),
+                          verbatimTextOutput("selectedCells"),
                           tagList(
                             tags$head(
                               tags$link(rel="stylesheet", type="text/css",href="style.css"),
