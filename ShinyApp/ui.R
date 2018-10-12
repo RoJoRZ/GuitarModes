@@ -25,7 +25,7 @@ shinyUI(
                                        choices = list("1-3-5" = 1, "1-3-5-7" = 2),
                                        selected = 1),
                           sliderInput("textsize", label = h4("Text size"), min = 0,
-                                      max = 10, value = 3),
+                                      max = 10, value = 5),
 
                           # indicator that the server is busy (copy in every sidebar on each tab)
                           conditionalPanel(condition="$('html').hasClass('shiny-busy')",
@@ -35,9 +35,10 @@ shinyUI(
 
                         mainPanel(
                           plotOutput('plot'),
-                          h4("Chords that belong to the selected basemode and tune, click to show target notes."),
+                          h4("Chords that belong to the selected basemode and tune:"),
                           DT::dataTableOutput("chordtable"),
-                          verbatimTextOutput("selectedCells"),
+                          h4("Click to show target notes. Green = basenote (1), Orange = third (3), Blue = fifth (5), Pink = seventh (7)"),
+                          #verbatimTextOutput("selectedCells"),
                           tagList(
                             tags$head(
                               tags$link(rel="stylesheet", type="text/css",href="style.css"),

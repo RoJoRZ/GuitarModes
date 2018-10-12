@@ -28,8 +28,10 @@ shinyServer(function(input, output) {
   output$selectedCells <- renderPrint(sum(input$chordtable_cells_selected))
 
   output$plot <- renderPlot({
-    GuitarPlot(data(), labsize = input$textsize)
-  }, height = 350)
+    GuitarPlot(data(), labsize = input$textsize,
+               target = input$targets,
+               targetstart = sum(input$chordtable_cells_selected))
+  }, height = 400)
 
 
 # The end ---------------------------------------------------------------------

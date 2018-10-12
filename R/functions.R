@@ -240,7 +240,7 @@ GuitarPlot <- function(data, nfrets = NULL,
                        tuning = NULL,
                        labsize = 4,
                        target = 1,
-                       targetstart = 1) {
+                       targetstart = 0) {
 
   # nfrets = 22 used if no nfrets is indicated
   if (is.null(nfrets)) nfrets <- 22
@@ -250,10 +250,33 @@ GuitarPlot <- function(data, nfrets = NULL,
   if (is.null(lastfret)) lastfret <- nfrets
   # Standard tuning is used if no tuning is indicated
   if (is.null(tuning)) tuning <- c("E","A","D","G","B","E")
-data$targets <- rep(c(1,0,1,0,1,0,1), times=ceiling(nrow(data)/7))[1:nrow(data)]
+
+  first <- data$note[targetstart]
+  third <- data$note[targetstart + 2]
+  fifth <- data$note[targetstart + 4]
+  seventh <- data$note[targetstart + 6]
+  if (targetstart == 0) {
+    data$targets <- 0
+    } else {
+  if (target >= 1) {
+    data$targets <- 0
+    data$targets[which(data$note == first)] <- 1
+    data$targets[which(data$note == third)] <- 3
+    data$targets[which(data$note == fifth)] <- 5
+  }
+  if (target == 2) {
+    data$targets[which(data$note == seventh)] <- 7
+  }
+  }
+
+data$targets <- as.factor(data$targets)
+z <- c("white", "#009E73", "#E69F00", "#56B4E9", "#CC79A7")
+#z <- z[nlevels(data$targets)]
 
 ggplot(data, aes(x=string, y=position, label = note, fill = targets)) +
+  scale_fill_manual(values = z) +
   geom_label(size = labsize, color = "black") +
+  geom_point(size = 0, stroke = 0) +
   scale_x_continuous(limits=c(1,6), breaks=seq(1, 6, 1), labels = tuning) +
   scale_y_continuous(limits= c(firstfret,lastfret), breaks=seq(0, 22, 1)) +
   coord_flip() +
@@ -261,7 +284,10 @@ ggplot(data, aes(x=string, y=position, label = note, fill = targets)) +
   theme(panel.grid.major.x = element_blank()) +
   theme(panel.grid.minor.x = element_line(colour = "black")) +
   theme(panel.grid.major.y = element_line(colour = "black")) +
-  theme(panel.grid.minor.y = element_blank())
+  theme(panel.grid.minor.y = element_blank()) +
+  theme(legend.position="none")
+  #theme(legend.position ="bottom") +
+  #guides(fill = guide_legend(title = "Target notes", override.aes = list(size = 5, color = z)))
 }
 
 
