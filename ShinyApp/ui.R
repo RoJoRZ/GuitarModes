@@ -6,6 +6,8 @@ shinyUI(
              tabPanel(div(h4("GuitarModes")),
                       sidebarLayout(
                         sidebarPanel(
+                          sliderInput("nfrets", label = h4("Number of frets"), min = 19,
+                                      max = 27, value = 22),
                           selectInput("tune", label = h4("Tune"),
                                       choices = c("Ab","A","A#","Bb","B","B#",
                                                   "Cb","C","C#","Db","D","D#",
@@ -26,6 +28,9 @@ shinyUI(
                                        selected = 1),
                           sliderInput("textsize", label = h4("Text size"), min = 0,
                                       max = 10, value = 5),
+                          sliderInput("neck", label = h4("show frets:"), min = 0,
+                                      max = 27, value = c(0, 22)),
+
 
                           # indicator that the server is busy (copy in every sidebar on each tab)
                           conditionalPanel(condition="$('html').hasClass('shiny-busy')",
@@ -34,6 +39,10 @@ shinyUI(
                           width = 2),
 
                         mainPanel(
+                          h4("Church modes for Guitar"),
+                          p("In order to better understand the possibilities of using the church modes I created this application together with my teacher",
+                          a("Mario Miracolo.", href="https://gitaarschoolmariobreda.com/"),"- Ronny Joosen"),
+
                           plotOutput('plot'),
                           h4("Chords that belong to the selected basemode and tune:"),
                           DT::dataTableOutput("chordtable"),

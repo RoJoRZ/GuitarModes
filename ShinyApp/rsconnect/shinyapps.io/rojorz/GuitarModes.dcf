@@ -5,8 +5,8 @@ account: rojorz
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 509386
-bundleId: 1638734
+bundleId: 1638745
 url: https://rojorz.shinyapps.io/GuitarModes/
-when: 1539333828.10217
+when: 1539334234.61938
 asMultiple: FALSE
 asStatic: FALSE

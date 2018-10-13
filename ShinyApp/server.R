@@ -9,7 +9,7 @@ shinyServer(function(input, output) {
   #source('src/srv_load.R', local = TRUE)
 
   data <- reactive({
-    CombineModes(tune = input$tune, nfrets = 22, basemode = input$basemode, modes = input$othermode)
+    CombineModes(tune = input$tune, nfrets = input$nfrets, basemode = input$basemode, modes = input$othermode)
   })
 
   chords <- reactive({
@@ -28,7 +28,11 @@ shinyServer(function(input, output) {
   output$selectedCells <- renderPrint(sum(input$chordtable_cells_selected))
 
   output$plot <- renderPlot({
-    GuitarPlot(data(), labsize = input$textsize,
+    GuitarPlot(data(),
+               nfrets = input$nfrets,
+               firstfret = input$neck[1],
+               lastfret = input$neck[2],
+               labsize = input$textsize,
                target = input$targets,
                targetstart = sum(input$chordtable_cells_selected))
   }, height = 400)

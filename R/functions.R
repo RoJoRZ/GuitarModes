@@ -278,7 +278,7 @@ ggplot(data, aes(x=string, y=position, label = note, fill = targets)) +
   geom_label(size = labsize, color = "black") +
   geom_point(size = 0, stroke = 0) +
   scale_x_continuous(limits=c(1,6), breaks=seq(1, 6, 1), labels = tuning) +
-  scale_y_continuous(limits= c(firstfret,lastfret), breaks=seq(0, 22, 1)) +
+  scale_y_continuous(limits= c(firstfret,lastfret), breaks=seq(0, nfrets, 1)) +
   coord_flip() +
   theme_bw() +
   theme(panel.grid.major.x = element_blank()) +
