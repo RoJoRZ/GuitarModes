@@ -35,7 +35,8 @@ shinyServer(function(input, output) {
                labsize = input$textsize,
                target = input$targets,
                targetstart = sum(input$chordtable_cells_selected))
-  }, height = 400)
+
+  })
 
 
 # The end ---------------------------------------------------------------------
