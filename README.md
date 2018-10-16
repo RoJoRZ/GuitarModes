@@ -6,6 +6,15 @@ Introduction
 
 Find the positioning of different modes on your guitar. Indicate which chords can be played in the choosen mode/tune and indicate the position of ground notes. Functions defined as R package complemented with a Shiny app for interactive usage.
 
+Installation
+------------
+
+Using devtools the package can be installed from github:
+
+install.packages("devtools")
+library(devtools)
+install\_github("RoJoRZ/GuitarModes")
+
 Package functionality
 ---------------------
 
@@ -17,10 +26,7 @@ Done:
 2.  GetPosition: Get all positions of a certain note (with flexible tuning)
 3.  GetMode: Get mode positions and tones (at standard tuning)
 4.  CombineModes: Start with a mode in a tune and get the positions of the other modes
-
-<!-- -->
-
-1.  GuitarPlot: Plot Guitar with flexible label size, number of frets, first and last fret to show
+5.  GuitarPlot: Plot Guitar with flexible label size, number of frets, first and last fret to show
 
 Below we give some examples of the core functions
 
@@ -81,78 +87,50 @@ GuitarPlot(Ionian3, labsize = 3)
 
 ![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
-Get and plot the Dorian3 mode in D
+Get and plot the Ionian mode in C highlight the target notes (1,3,5) from D. Target 1 = target notes 1,3,5 and target 2 = target notes 1,3,5 and 7. Targetstart is the position of the chord in the base mode.
 
 ``` r
-Dorian3 <- GetMode(tune = "D",nfrets = 22,mode = "Dorian3")
-GuitarPlot(Dorian3, labsize = 3)
+Ionian3 <- GetMode(tune = "C",nfrets = 22,mode = "Ionian3")
+GuitarPlot(Ionian3, labsize = 3, target = 1, targetstart = 2)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
-Get and plot the Phrygian3 mode in E
+Get and plot the Ionian mode in C highlight the target notes (1,3,5,7) from E.
+
+``` r
+Ionian3 <- GetMode(tune = "C",nfrets = 22,mode = "Ionian3")
+GuitarPlot(Ionian3, labsize = 3, target = 2, targetstart = 3)
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
+
+All the above is possible for each church mode: Ionian3, Dorian3, Phrygian3, Lydian3, MixoLydian3, Aeolian3, Locrian3. For example get and plot the Phrygian3 mode in E
 
 ``` r
 Phrygian3 <- GetMode(tune = "E",nfrets = 22,mode = "Phrygian3")
 GuitarPlot(Phrygian3, labsize = 3)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
-
-Get and plot the Lydian3 mode in F
-
-``` r
-Lydian3 <- GetMode(tune = "F",nfrets = 22,mode = "Lydian3")
-GuitarPlot(Lydian3, labsize = 3)
-```
-
 ![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
-Get and plot the MixoLydian3 mode in G
+Now it is also possible to combine modes. For example get positions Ionian, Phrygian and Aeolian3 modes starting from C Ionian:
 
 ``` r
-MixoLydian3 <- GetMode(tune = "G",nfrets = 22,mode = "MixoLydian3")
-GuitarPlot(MixoLydian3, labsize = 3)
+Combine <- CombineModes(tune = "C",basemode = "Ionian3", modes = c("Phrygian3", "Aeolian3"))
+GuitarPlot(Combine)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
-Get and plot the Aeolian3 mode in A
+Again but now highlighting the target notes from the C7 chord:
 
 ``` r
-Aeolian3 <- GetMode(tune = "A",nfrets = 22,mode = "Aeolian3")
-GuitarPlot(Aeolian3, labsize = 3)
+Combine <- CombineModes(tune = "C",basemode = "Ionian3", modes = c("Phrygian3", "Aeolian3"))
+GuitarPlot(Combine, target = 2, targetstart = 1)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
-
-Get and plot the Locrian3 mode in B
-
-``` r
-Locrian3 <- GetMode(tune = "B",nfrets = 22,mode = "Locrian3")
-GuitarPlot(Locrian3, labsize = 3)
-```
-
-![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
-
-Get positions of all modes starting from a centain mode and tune
-
-``` r
-# Combine <- CombineModes(tune = "F",nfrets = 22,basemode = "Lydian3", modes = c("Ionian3"))
-Combine <- CombineModes(tune = "C",basemode = "Ionian3", modes = NULL)
-GuitarPlot(Combine)
-```
-
-![](README_files/figure-markdown_github/unnamed-chunk-12-1.png)
-
-Get positions of all modes starting from a centain mode and tune
-
-``` r
-Combine <- CombineModes(tune = "F",nfrets = 22, basemode = "Lydian3", modes = c("Ionian3"))
-GuitarPlot(Combine)
-```
-
-![](README_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
 Or completely flexible generate any chord or setting in the plot
 
@@ -163,4 +141,4 @@ Ecord <- data.frame(string = c(1,2,3,4,5,6),
 GuitarPlot(Ecord, nfrets = 4, labsize = 4)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-14-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
