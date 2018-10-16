@@ -160,7 +160,9 @@ GetMode <- function(tune, nfrets = NULL, mode = NULL) {
   }
   modepos <- modepos[,c(1,2,3,7)]
   modepos2 <- mutate(modepos, position = position + 12) %>% filter(position <= nfrets)
+  modepos3 <- mutate(modepos, position = position -12) %>% filter(position >= 0)
   modepos <- rbind(modepos,modepos2)
+  modepos <- rbind(modepos, modepos3)
   modepos <- modepos %>% mutate(chords = paste0(note, chords))
 
   return(modepos)
