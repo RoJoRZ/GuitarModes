@@ -1,6 +1,6 @@
 #' DefNotes
 #'
-#' Define note notation
+#' Define note notation.
 #'
 #' @param notes note notation, NULL will get the default
 #'
