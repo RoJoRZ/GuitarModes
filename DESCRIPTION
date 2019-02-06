@@ -1,7 +1,7 @@
 Package: GuitarModes
 Type: Package
 Title: Find the positioning of different modes and ground tones on your guitar
-Version: 0.1.0
+Version: 0.2.0
 Author: Ronny Joosen
 Maintainer: Ronny Joosen <rvl.joosen@gmail.cpm>
 Description: Find the positioning of different modes and ground tones on your guitar

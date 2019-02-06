@@ -1,0 +1,12 @@
+name: ShinyApp
+title: ShinyApp
+username:
+account: rojorz
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 695315
+bundleId: 1860270
+url: https://rojorz.shinyapps.io/ShinyApp/
+when: 1549482749.38671
+asMultiple: FALSE
+asStatic: FALSE

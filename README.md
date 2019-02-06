@@ -4,7 +4,7 @@ GuitarModes
 Introduction
 ------------
 
-Find the positioning of different modes on your guitar. Indicate which chords can be played in the choosen mode/tune and indicate the position of ground notes. Functions defined as R package complemented with a Shiny app for interactive usage.
+Find the positioning of different modes on your guitar. Indicate which chords can be played in the choosen mode/tune and indicate the position of ground notes. Functions defined as R package complemented with a Shiny app for interactive usage. Available at: <https://rojorz.shinyapps.io/GuitarModes/>
 
 Installation
 ------------
@@ -43,6 +43,11 @@ Get positions of a given note:
 
 ``` r
 Apositions <- GetPosition("A")
+```
+
+    ## Warning: package 'bindrcpp' was built under R version 3.5.2
+
+``` r
 kable(Apositions)
 ```
 
