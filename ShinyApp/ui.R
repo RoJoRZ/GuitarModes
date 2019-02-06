@@ -21,7 +21,7 @@ shinyUI(
                                                   "MixoLydian3", "Aeolian3", "Locrian3"),
                                       multiple = TRUE, selectize = TRUE),
                           radioButtons("targets", label = h5("Show chord notes"),
-                                       choices = list("1-3-5" = 1, "1-3-5-7" = 2),
+                                       choices = list("1-3-5" = 1, "1-3-5-7" = 2,"1-3-4-5-7" = 3),
                                        selected = 1),
                           sliderInput("textsize", label = h5("Text size"), min = 0,
                                       max = 10, value = 5),

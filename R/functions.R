@@ -255,6 +255,7 @@ GuitarPlot <- function(data, nfrets = NULL,
 
   first <- data$note[targetstart]
   third <- data$note[targetstart + 2]
+  fourth <- data$note[targetstart + 3]
   fifth <- data$note[targetstart + 4]
   seventh <- data$note[targetstart + 6]
   if (targetstart == 0) {
@@ -269,10 +270,14 @@ GuitarPlot <- function(data, nfrets = NULL,
   if (target == 2) {
     data$targets[which(data$note == seventh)] <- 7
   }
+  if (target == 3) {
+    data$targets[which(data$note == fourth)] <- 4
+    data$targets[which(data$note == seventh)] <- 7
+  }
   }
 
 data$targets <- as.factor(data$targets)
-z <- c("white", "#009E73", "#E69F00", "#56B4E9", "#CC79A7")
+z <- c("white", "#009E73", "#E69F00", "#56B4E9", "#CC79A7", "#E66100")
 #z <- z[nlevels(data$targets)]
 
 ggplot(data, aes(x=string, y=position, label = note, fill = targets)) +
